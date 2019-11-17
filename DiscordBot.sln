@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotConsole", "BotConsole\Bo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBot", "DiscordBot\DiscordBot.csproj", "{91DFA76A-95C3-447D-AF45-780A9A0860A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{D6FCEDF0-E358-47DD-AA55-2CB77A69425B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{91DFA76A-95C3-447D-AF45-780A9A0860A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91DFA76A-95C3-447D-AF45-780A9A0860A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91DFA76A-95C3-447D-AF45-780A9A0860A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6FCEDF0-E358-47DD-AA55-2CB77A69425B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6FCEDF0-E358-47DD-AA55-2CB77A69425B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6FCEDF0-E358-47DD-AA55-2CB77A69425B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6FCEDF0-E358-47DD-AA55-2CB77A69425B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

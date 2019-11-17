@@ -155,6 +155,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\AudioService.cs" />
+    <Compile Include="Services\HttpClientService.cs" />
     <Compile Include="Services\StaticServices.cs" />
   </ItemGroup>
   <ItemGroup>
