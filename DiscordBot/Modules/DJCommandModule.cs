@@ -18,11 +18,14 @@ namespace DiscordBot.Modules
         // Like, way down
         private readonly AudioService AudioService;
 
+        private readonly YoutubeService YoutubeService;
+
         // Remember to add an instance of the AudioService
         // to your IServiceCollection when you initialize your bot
-        public DJCommandModule(AudioService Service)
+        public DJCommandModule(AudioService AService, YoutubeService YService)
         {
-            AudioService = Service;
+            AudioService = AService;
+            YoutubeService = YService;
         }
 
         [Command("joinvoice", RunMode = RunMode.Async)]
@@ -39,6 +42,26 @@ namespace DiscordBot.Modules
         {
             // Get the audio channel
             await AudioService.SendAudioFFMPEGFileAsync(Context.Guild, Context.Channel, Song);
+        }
+
+        [Command("leavevoice", RunMode = RunMode.Async)]
+        [Alias("lv")]
+        public async Task LeaveChannel()
+        {
+            // Get the audio channel
+            await AudioService.LeaveAudio(Context.Guild);
+        }
+
+        [Command("youtubesearch", RunMode = RunMode.Async)]
+        [Alias("yts")]
+        public async Task YouTubeSearch([Remainder] string Search)
+        {
+            string Message = "";
+            // Get the audio channel
+            List<YoutubeSearchData> Data = YoutubeService.GetSearchList(Search);
+            foreach (YoutubeSearchData Result in Data)
+                Message += $"{Result.Title} - {Result.VideoPageLink}\n";
+            await Context.Channel.SendMessageAsync(Message);
         }
     }
 }

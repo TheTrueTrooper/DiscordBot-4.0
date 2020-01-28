@@ -29,6 +29,8 @@ namespace DiscordBot
 
         AudioService Audio;
 
+        YoutubeService Youtube;
+
         IServiceProvider Services;
 
         public Action<LogMessage> LogAction = (x) => { Console.WriteLine(x.ToString()); };
@@ -43,6 +45,7 @@ namespace DiscordBot
             Client = new DiscordSocketClient();
             Command = new CommandService();
             Audio = new AudioService();
+            Youtube = new YoutubeService();
 
             Client.Log += LogAsync;
             Client.MessageReceived += MessageReceivedAsync;
@@ -51,6 +54,7 @@ namespace DiscordBot
                 .AddSingleton(Client)
                 .AddSingleton(Command)
                 .AddSingleton(Audio)
+                .AddSingleton(Youtube)
                 .BuildServiceProvider();
         }
 

@@ -12,12 +12,9 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            HttpClientService Client = new HttpClientService("https://www.youtube.com");
-            string Source = Client.GetResponseAsText("results", new { search_query = "url" });
-            Console.WriteLine(Source);
-            List<XElement> SubNodes = Client.GetNodeFromID(Source, "id=\"content\"");
-            Console.WriteLine($"Master node:\n\t{SubNodes}");
-            Console.ReadLine();
+            YoutubeService Client = new YoutubeService();
+            List<YoutubeSearchData> Source = Client.GetSearchList("cat");
+            Console.ReadKey();
         }
     }
 }

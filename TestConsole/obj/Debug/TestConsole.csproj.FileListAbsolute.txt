@@ -27,3 +27,14 @@ C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\obj\Debug\TestCon
 C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\obj\Debug\TestConsole.csproj.CopyComplete
 C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\obj\Debug\TestConsole.exe
 C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\obj\Debug\TestConsole.pdb
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\ffmpeg.exe
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\libsodium.dll
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\opus.dll
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\libsodium.dll.checksums
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\opus.dll.checksums
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\AngleSharp.dll
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\System.Text.Encoding.CodePages.dll
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\netstandard.dll
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\AngleSharp.xml
+C:\Users\Angelo's Tower PC\source\repos\DiscordBot\TestConsole\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
