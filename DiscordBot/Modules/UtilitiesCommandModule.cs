@@ -67,7 +67,9 @@ namespace DiscordBot.Modules
             await ReplyAsync($"You have too few args.\nThe can be have 'Max' or 'Min' followed by 'Max' all arguments are seperated by spaces.");
         }
 
+        const string MultiRoll = "Your rolls are the following `[{0}]` for: a `total` of `{1}`; a top value of `{2}`; a `min` value of `{3}`.";
         const string RolledMessage = "You have rolled a";
+        const string InvalidModifier = "The modifier you have provided is in valid! use (m+[x] or m-[x])";
 
         const string D100HiddenHelpString = "D100DiceHidden";
         [Command("d100dicehidden")]
@@ -139,11 +141,203 @@ namespace DiscordBot.Modules
             await ReplyAsync($"{RolledMessage} {StaticServices.RandomN.Next(0, 99)}");
         }
 
+        [Command("d100dice")]
+        [Alias("d100")]
+        public async Task D100Async(string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int Value = StaticServices.RandomN.Next(0, 99);
+            await ReplyAsync($"{RolledMessage} {Value} for a {Value + Moddifier}");
+        }
+
+        [Command("d100dice")]
+        [Alias("d100")]
+        public async Task D100Async(int NumberOfRolls)
+        {
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(0, 99);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum(), Rolls.Max(), Rolls.Min()));
+        }
+
+        [Command("d100dice")]
+        [Alias("d100")]
+        public async Task D100Async(int NumberOfRolls, string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(0, 99);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum() + Moddifier, Rolls.Max() + Moddifier, Rolls.Min() + Moddifier));
+        }
+
         [Command("d20dice")]
         [Alias("d20")]
         public async Task D20Async()
         {
             await ReplyAsync($"{RolledMessage} {StaticServices.RandomN.Next(1, 20)}");
+        }
+
+        [Command("d20dice")]
+        [Alias("d20")]
+        public async Task D20Async(string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int Value = StaticServices.RandomN.Next(1, 20);
+            await ReplyAsync($"{RolledMessage} {Value} for a {Value + Moddifier}");
+        }
+
+        [Command("d20dice")]
+        [Alias("d20")]
+        public async Task D20Async(int NumberOfRolls)
+        {
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 20);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum(), Rolls.Max(), Rolls.Min()));
+        }
+
+        [Command("d20dice")]
+        [Alias("d20")]
+        public async Task D20Async(int NumberOfRolls, string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 20);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum() + Moddifier, Rolls.Max() + Moddifier, Rolls.Min() + Moddifier));
         }
 
         [Command("d12dice")]
@@ -153,11 +347,121 @@ namespace DiscordBot.Modules
             await ReplyAsync($"{RolledMessage} {StaticServices.RandomN.Next(1, 12)}");
         }
 
+        [Command("d12dice")]
+        [Alias("d12")]
+        public async Task D12Async(int NumberOfRolls)
+        {
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 12);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum(), Rolls.Max(), Rolls.Min()));
+        }
+
         [Command("d10dice")]
         [Alias("d10")]
         public async Task D10Async()
         {
-            await ReplyAsync($"{RolledMessage} {StaticServices.RandomN.Next(0, 9)}");
+            await ReplyAsync($"{RolledMessage} {StaticServices.RandomN.Next(1, 10)}");
+        }
+
+        [Command("d10dice")]
+        [Alias("d10")]
+        public async Task D10Async(string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int Value = StaticServices.RandomN.Next(1, 10);
+            await ReplyAsync($"{RolledMessage} {Value} for a {Value + Moddifier}");
+        }
+
+        [Command("d10dice")]
+        [Alias("d10")]
+        public async Task D10Async(int NumberOfRolls)
+        {
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 10);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum(), Rolls.Max(), Rolls.Min()));
+        }
+
+        [Command("d10dice")]
+        [Alias("d10")]
+        public async Task D10Async(int NumberOfRolls, string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 10);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum() + Moddifier, Rolls.Max() + Moddifier, Rolls.Min() + Moddifier));
         }
 
         [Command("d8dice")]
@@ -167,6 +471,102 @@ namespace DiscordBot.Modules
             await ReplyAsync($"{RolledMessage} {StaticServices.RandomN.Next(1, 8)}");
         }
 
+        [Command("d8dice")]
+        [Alias("d8")]
+        public async Task D8Async(string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int Value = StaticServices.RandomN.Next(1, 8);
+            await ReplyAsync($"{RolledMessage} {Value} for a {Value + Moddifier}");
+        }
+
+        [Command("d8dice")]
+        [Alias("d8")]
+        public async Task D8Async(int NumberOfRolls)
+        {
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 8);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum(), Rolls.Max(), Rolls.Min()));
+        }
+
+        [Command("d8dice")]
+        [Alias("d8")]
+        public async Task D8Async(int NumberOfRolls, string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 8);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum() + Moddifier, Rolls.Max() + Moddifier, Rolls.Min() + Moddifier));
+        }
+
         [Command("d6dice")]
         [Alias("d6")]
         public async Task D6Async()
@@ -174,11 +574,203 @@ namespace DiscordBot.Modules
             await ReplyAsync($"{RolledMessage} {StaticServices.RandomN.Next(1, 6)}");
         }
 
+        [Command("d6dice")]
+        [Alias("d6")]
+        public async Task D6Async(string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int Value = StaticServices.RandomN.Next(1, 6);
+            await ReplyAsync($"{RolledMessage} {Value} for a {Value + Moddifier}");
+        }
+
+        [Command("d6dice")]
+        [Alias("d6")]
+        public async Task D6Async(int NumberOfRolls)
+        {
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 6);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum(), Rolls.Max(), Rolls.Min()));
+        }
+
+        [Command("d6dice")]
+        [Alias("d6")]
+        public async Task D6Async(int NumberOfRolls, string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 6);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum() + Moddifier, Rolls.Max() + Moddifier, Rolls.Min() + Moddifier));
+        }
+
         [Command("d4dice")]
         [Alias("d4")]
         public async Task D4Async()
         {
             await ReplyAsync($"{RolledMessage} {StaticServices.RandomN.Next(1, 4)}");
+        }
+
+        [Command("d4dice")]
+        [Alias("d4")]
+        public async Task D4Async(string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int Value = StaticServices.RandomN.Next(1, 4);
+            await ReplyAsync($"{RolledMessage} {Value} for a {Value + Moddifier}");
+        }
+
+        [Command("d4dice")]
+        [Alias("d4")]
+        public async Task D4Async(int NumberOfRolls)
+        {
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 4);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum(), Rolls.Max(), Rolls.Min()));
+        }
+
+        [Command("d4dice")]
+        [Alias("d4")]
+        public async Task D4Async(int NumberOfRolls, string Modifier)
+        {
+            int Moddifier;
+            if (Modifier.StartsWith("m+"))
+            {
+                try
+                {
+                    Moddifier = int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else if (Modifier.StartsWith("m-"))
+            {
+                try
+                {
+                    Moddifier = -1 * int.Parse(Modifier.Remove(0, 2));
+                }
+                catch
+                {
+                    await ReplyAsync(InvalidModifier);
+                    return;
+                }
+            }
+            else
+            {
+                await ReplyAsync(InvalidModifier);
+                return;
+            }
+            int[] Rolls = new int[NumberOfRolls];
+            string RollsListed = "";
+            for (int i = 0; i < NumberOfRolls; i++)
+                Rolls[i] = StaticServices.RandomN.Next(1, 4);
+            foreach (int RandomNumber in Rolls)
+                RollsListed += $"{RandomNumber}, ";
+            RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
+            await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum() + Moddifier, Rolls.Max() + Moddifier, Rolls.Min() + Moddifier));
         }
 
         [Command("flipcoin")]
