@@ -13,13 +13,28 @@ namespace DiscordBot.Modules
 {
     public class BasicCommandModule : ModuleBase<SocketCommandContext>
     {
-        public static string HelpString { get; private set; } = $"🗺️_**For Basic Commands:**_🗺️\n```{PingHelpString}{EcoHelpString}{InviteHelpString}```";
+        public static string HelpString { get; private set; } = $"🗺️_**For Basic Commands:**_🗺️\n```{PingHelpString}{EcoHelpString}{InviteHelpString}```\nThere are additional commands in the {DJCommandModule.InfoTag}, {DiceCommandModule.InfoTag}, {UtilitiesCommandModule.InfoTag}, and {AdminCommandModule.InfoTag} Tree just type `~help [subTree]` for more. Thats help followed by the sub catagory listed here.";
 
         [Command("help")]
         [Alias("h")]
         public async Task HelpAsync()
         {
             await ReplyAsync(HelpString);
+        }
+
+        [Command("help")]
+        [Alias("h")]
+        public async Task HelpAsync(string HelpWith)
+        {
+            HelpWith = HelpWith.ToLower();
+            if (HelpWith == DJCommandModule.InfoTag.ToLower())
+                await ReplyAsync(DJCommandModule.Help);
+            else if (HelpWith == DiceCommandModule.InfoTag.ToLower())
+                await ReplyAsync(DiceCommandModule.Help);
+            else if (HelpWith == UtilitiesCommandModule.InfoTag.ToLower())
+                await ReplyAsync(UtilitiesCommandModule.Help);
+            else if (HelpWith == AdminCommandModule.InfoTag.ToLower())
+                await ReplyAsync(AdminCommandModule.Help);
         }
 
         public const string PingHelpString = "Ping - This command will return an approximation of your ping.\n";

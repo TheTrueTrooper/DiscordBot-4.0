@@ -8,8 +8,8 @@ namespace DiscordBot.Services
 {
     public class YoutubeService
     {
-        public const string VideoPageLinkBase = "watch?v=";
-        public const string VideoEmbedLinkBase = "embed/";
+        public const string VideoPageLinkBase = "/watch?v=";
+        public const string VideoEmbedLinkBase = "/embed/";
         public const string BaseURL = "https://www.youtube.com";
 
         HttpClientService HttpClient;
