@@ -22,6 +22,7 @@ namespace DiscordBot.Services
         public List<YoutubeSearchData> GetSearchList(string Search)
         {
             string Source = HttpClient.GetResponseAsText("results", new { search_query = Search });
+            Source = HttpClient.DropHeadFromDoc(Source);
             Source = HttpClient.GetNodeFromDoc(Source, "div", new { id = "content" })[0];
             Source = HttpClient.GetNodeFromDoc(Source, "ul", new { @class = "shelf-content" })[0];
             List<string> Items = HttpClient.GetNodeChildren(Source);

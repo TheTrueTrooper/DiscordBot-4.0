@@ -526,6 +526,27 @@ namespace DiscordBot.Modules
 
         [Command("roll")]
         [Alias("r")]
+        public async Task RollDiceGeneric(string Dice, int Moddifier, int Moddifier2, int Moddifier3, int Moddifier4)
+        {
+            await RollDiceGeneric(Dice, Moddifier + Moddifier2 + Moddifier3 + Moddifier4);
+        }
+
+        [Command("roll")]
+        [Alias("r")]
+        public async Task RollDiceGeneric(string Dice, int Moddifier, int Moddifier2, int Moddifier3)
+        {
+            await RollDiceGeneric(Dice, Moddifier + Moddifier2 + Moddifier3);
+        }
+
+        [Command("roll")]
+        [Alias("r")]
+        public async Task RollDiceGeneric(string Dice, int Moddifier, int Moddifier2)
+        {
+            await RollDiceGeneric(Dice, Moddifier + Moddifier2);
+        }
+
+        [Command("roll")]
+        [Alias("r")]
         public async Task RollDiceGeneric(string Dice, int Moddifier)
         {
             int DiceSize;
@@ -541,9 +562,9 @@ namespace DiscordBot.Modules
                     RollsListed += $"{RandomNumber}, ";
                 RollsListed = RollsListed.Remove(RollsListed.Length - 2, 2);
                 if(NumberOfRolls > 1)
-                    await ReplyAsync(string.Format(MultiRoll, RollsListed, Rolls.Sum() + Moddifier, Rolls.Max() + Moddifier, Rolls.Min() + Moddifier));
+                    await ReplyAsync($"{Context.User.Mention} {string.Format(MultiRoll, RollsListed, Rolls.Sum() + Moddifier, Rolls.Max() + Moddifier, Rolls.Min() + Moddifier)}");
                 else
-                    await ReplyAsync($"{RolledMessage} {Rolls[0]} for a {Rolls[0] + Moddifier}");
+                    await ReplyAsync($"{Context.User.Mention} {RolledMessage} {Rolls[0]} for a {Rolls[0] + Moddifier}");
             }
             else
                 await ReplyAsync(ErrorMessage);
@@ -557,7 +578,23 @@ namespace DiscordBot.Modules
             await RollDiceGeneric(Dice, 0);
         }
 
+        [Command("rolldice")]
+        [Alias("r")]
         public async Task RollDiceGeneric()
+        {
+            await ReplyAsync(DiceSizeImproperFormate);
+        }
+
+        [Command("rolldice")]
+        [Alias("r")]
+        public async Task RollDiceGeneric(char Char, [Remainder]string s)
+        {
+            await ReplyAsync(DiceSizeImproperFormate);
+        }
+
+        [Command("roll")]
+        [Alias("r")]
+        public async Task RollDiceGeneric(string Dice, [Remainder]string s)
         {
             await ReplyAsync(DiceSizeImproperFormate);
         }
